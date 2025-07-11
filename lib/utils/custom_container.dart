@@ -19,6 +19,7 @@ class CustomContainer extends StatelessWidget {
           ),
         ],
       ),
+      clipBehavior: Clip.hardEdge,
       padding: const EdgeInsets.all(8),
       child: child,
     );

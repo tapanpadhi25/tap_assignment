@@ -22,14 +22,6 @@ class _CompanyDetailsScreenState extends State<CompanyDetailsScreen> {
     });
   }
 
-  final ValueNotifier<String> selectedTab = ValueNotifier<String>("EBITDA");
-
-  @override
-  void dispose() {
-    selectedTab.dispose();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -41,7 +33,7 @@ class _CompanyDetailsScreenState extends State<CompanyDetailsScreen> {
           child: BlocBuilder<CompanyDetailsCubit, CompanyDetailsState>(
             builder: (context, state) {
               return state.when(
-                initial: () => const Center(child: Text("Initializing...")),
+                initial: () => const Center(child: Text("")),
                 loading: () => const Center(child: CircularProgressIndicator()),
                 loaded: (companyDetails) {
                   return Padding(
@@ -100,9 +92,9 @@ class _CompanyDetailsScreenState extends State<CompanyDetailsScreen> {
                                 // Light blue background
                                 borderRadius: BorderRadius.circular(6),
                               ),
-                              child: const Text(
-                                "ISIN: INE06E507157",
-                                style: TextStyle(
+                              child:  Text(
+                                "ISIN: ${companyDetails.isin}",
+                                style: const TextStyle(
                                   color: Color(0xFF1967D2), // Blue text
                                   fontWeight: FontWeight.w600,
                                   letterSpacing: 0.5,
@@ -118,9 +110,9 @@ class _CompanyDetailsScreenState extends State<CompanyDetailsScreen> {
                                 // Light green background
                                 borderRadius: BorderRadius.circular(6),
                               ),
-                              child: const Text(
-                                "ACTIVE",
-                                style: TextStyle(
+                              child:  Text(
+                                companyDetails.status,
+                                style: const TextStyle(
                                   color: Color(0xFF137333), // Green text
                                   fontWeight: FontWeight.w600,
                                   letterSpacing: 0.5,
@@ -403,10 +395,10 @@ class _CompanyDetailsScreenState extends State<CompanyDetailsScreen> {
     VoidCallback onTap, {
     required bool isLeft,
   }) {
-    return GestureDetector(
+    return InkWell(
       onTap: onTap,
       child: AnimatedContainer(
-        duration: const Duration(milliseconds: 200),
+        duration: const Duration(milliseconds: 00),
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
         decoration: BoxDecoration(
           color: selected ? Colors.white : Colors.transparent,
